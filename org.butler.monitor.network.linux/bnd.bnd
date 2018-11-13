@@ -1,0 +1,11 @@
+Bundle-Name: Butler: Monitor: Network
+Bundle-Description: Butler Network Monitoring For Linux
+Bundle-Version: 1.0.0.{tstamp}
+Private-Package: \
+	org.butler.monitor.network.linux
+-buildpath: \
+	org.butler.monitor.network;version=latest,\
+	org.butler.util.file;version=latest,\
+	org.butler.util.threads;version=latest,\
+	org.osgi.service.component.annotations,\
+	org.osgi.service.metatype.annotations
