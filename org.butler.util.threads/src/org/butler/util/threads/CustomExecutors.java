@@ -2,6 +2,7 @@ package org.butler.util.threads;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -51,7 +52,7 @@ public class CustomExecutors {
 	 * @param threadPrefix
 	 * @return
 	 */
-	public static ExecutorService newSingleThreadScheduledExecutor(String threadPrefix) {
+	public static ScheduledExecutorService newSingleThreadScheduledExecutor(String threadPrefix) {
 		return Executors.newSingleThreadScheduledExecutor(new DefaultNamedThreadFactory(threadPrefix));
 	}
 
@@ -64,7 +65,7 @@ public class CustomExecutors {
 	 * @param threadPrefix
 	 * @return
 	 */
-	public static ExecutorService newScheduledThreadPool(int corePoolSize, String threadPrefix) {
+	public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize, String threadPrefix) {
 		return Executors.newScheduledThreadPool(corePoolSize, new DefaultNamedThreadFactory(threadPrefix));
 	}
 

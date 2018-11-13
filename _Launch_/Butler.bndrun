@@ -17,7 +17,11 @@
 	javax.annotation-api,\
 	org.apache.felix.scr,\
 	org.apache.felix.webconsole.plugins.ds,\
-	org.apache.felix.metatype
+	org.apache.felix.metatype,\
+	org.butler.util.file;version=latest,\
+	org.butler.util.threads;version=latest,\
+	org.butler.monitor.network;version=latest,\
+	org.butler.monitor.network.linux;version=latest
 
 -runrequires:\
 	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.shell)',\
