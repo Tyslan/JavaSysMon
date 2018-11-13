@@ -1,0 +1,3 @@
+Bundle-Name: Butler: Utils: File
+Bundle-Description: Utility bundle for files
+Bundle-Version: 1.0.0.{$tstamp}
