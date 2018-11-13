@@ -1,0 +1,3 @@
+Bundle-Name: Butler: Utils: Thread
+Bundle-Description: Utility bundle for threads
+Bundle-Version: 1.0.0.{$tstamp}
