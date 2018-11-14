@@ -1,0 +1,6 @@
+Bundle-Name: Butler: UI Swing: Core
+Bundle-Description: Swing UI Core for Butler
+Bundle-Version: 1.0.0.{$tstamp}
+-buildpath: org.osgi.service.component.annotations
+Private-Package: org.butler.ui.swing.core
+Export-Package: org.butler.ui.swing.core.api

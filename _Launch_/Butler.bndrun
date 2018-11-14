@@ -23,7 +23,8 @@
 	org.butler.monitor.network;version=latest,\
 	org.butler.monitor.network.linux;version=latest,\
 	org.ops4j.pax.logging.pax-logging-api,\
-	org.ops4j.pax.logging.pax-logging-service
+	org.ops4j.pax.logging.pax-logging-service,\
+	org.butler.ui.swing.core;version=latest
 
 -runrequires:\
 	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.shell)',\
