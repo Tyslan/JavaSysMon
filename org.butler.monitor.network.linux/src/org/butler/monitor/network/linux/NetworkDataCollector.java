@@ -28,10 +28,14 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.osgi.service.component.annotations.ReferencePolicy;
 import org.osgi.service.metatype.annotations.Designate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Component(configurationPolicy = ConfigurationPolicy.REQUIRE)
 @Designate(ocd = NetworkDataCollectorConfig.class)
 public class NetworkDataCollector {
+	private static final Logger logger = LoggerFactory.getLogger(NetworkDataCollector.class);
+	
 	private Map<String, RawNetworkData> lastCollectedData;
 
 	private List<NetworkSpeedDataListener> networkSpeedListeners = new CopyOnWriteArrayList<>();;
@@ -54,7 +58,7 @@ public class NetworkDataCollector {
 		try {
 			this.lastCollectedData = getRawData();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Error during init. Couldn't collect raw data.", e);
 		}
 
 		this.listenerUpdater = CustomExecutors.newSingleThreadExecutor("linux-network-speed-listeners");
@@ -70,7 +74,7 @@ public class NetworkDataCollector {
 			sendSpeedUpdates(rawData);
 			lastCollectedData = rawData;
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Couldn't collect raw data.", e);
 		}
 	}
 
@@ -94,8 +98,7 @@ public class NetworkDataCollector {
 		for (NetworkSpeedDataListener listener : networkSpeedListeners) {
 			listenerUpdater.execute(() -> listener.speedUpdated(speedData));
 		}
-
-		System.out.println(speedData.get("global"));
+		logger.debug("{}", speedData.get("global"));
 	}
 
 	private Map<String, NetworkSpeedData> generateNewNetworkSpeedData(Map<String, RawNetworkData> newData) {

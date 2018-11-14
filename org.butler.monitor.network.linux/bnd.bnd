@@ -8,4 +8,5 @@ Private-Package: \
 	org.butler.util.file;version=latest,\
 	org.butler.util.threads;version=latest,\
 	org.osgi.service.component.annotations,\
-	org.osgi.service.metatype.annotations
+	org.osgi.service.metatype.annotations,\
+	org.ops4j.pax.logging.pax-logging-api
