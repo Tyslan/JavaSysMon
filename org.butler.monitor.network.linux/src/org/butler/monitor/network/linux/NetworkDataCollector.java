@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 @Designate(ocd = NetworkDataCollectorConfig.class)
 public class NetworkDataCollector {
 	private static final Logger logger = LoggerFactory.getLogger(NetworkDataCollector.class);
-	
+
 	private Map<String, RawNetworkData> lastCollectedData;
 
 	private List<NetworkSpeedDataListener> networkSpeedListeners = new CopyOnWriteArrayList<>();;
@@ -112,9 +112,11 @@ public class NetworkDataCollector {
 			String key = entry.getKey();
 			NetworkSpeedData data = new NetworkSpeedDataImpl(lastCollectedData.get(key), entry.getValue());
 
-			durationInMillis = data.getDurationInMillis();
-			totalDownloaded += data.getDownloadedBytes();
-			totalUploaded += data.getUploadedBytes();
+			if (!key.equals("lo")) {
+				durationInMillis = data.getDurationInMillis();
+				totalDownloaded += data.getDownloadedBytes();
+				totalUploaded += data.getUploadedBytes();
+			}
 		}
 		NetworkSpeedData globalData = new NetworkSpeedDataImpl("global", durationInMillis, totalDownloaded,
 				totalUploaded);

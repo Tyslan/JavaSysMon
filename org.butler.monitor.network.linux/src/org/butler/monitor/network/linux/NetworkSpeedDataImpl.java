@@ -4,8 +4,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import org.butler.monitor.network.NetworkSpeedData;
-import org.butler.util.file.size.FileSizeConverter;
-import org.butler.util.file.size.FileSizeUnit;
+import org.butler.util.file.size.FileSizeFormatter;
 
 public class NetworkSpeedDataImpl implements NetworkSpeedData {
 	private String networkInterface;
@@ -44,18 +43,22 @@ public class NetworkSpeedDataImpl implements NetworkSpeedData {
 		return end - start;
 	}
 
+	@Override
 	public String getNetworkInterface() {
 		return networkInterface;
 	}
 
+	@Override
 	public long getDurationInMillis() {
 		return durationInMillis;
 	}
 
+	@Override
 	public long getDownloadedBytes() {
 		return downloadedBytes;
 	}
 
+	@Override
 	public long getUploadedBytes() {
 		return uploadedBytes;
 	}
@@ -68,47 +71,11 @@ public class NetworkSpeedDataImpl implements NetworkSpeedData {
 
 	public String getDownloadSpeed() {
 		double downloadSpeedBytesPerSeconds = downloadedBytes / durationInMillis * 1000.0;
-		return convertSpeed(downloadSpeedBytesPerSeconds);
+		return FileSizeFormatter.getFormattedBinary(downloadSpeedBytesPerSeconds) + "/s";
 	}
 
 	public String getUploadSpeed() {
 		double uploadSpeedBytesPerSeconds = uploadedBytes / durationInMillis * 1000.0;
-		return convertSpeed(uploadSpeedBytesPerSeconds);
-	}
-
-	public String convertSpeed(double size) {
-		if (size < 1024) {
-			return createSpeedString(size, FileSizeUnit.BYTE);
-		}
-
-		FileSizeUnit newSizeUnit = FileSizeUnit.KIBIBYTE;
-		double newSize = FileSizeConverter.convert(size, FileSizeUnit.BYTE, newSizeUnit);
-		if (newSize < 1024) {
-			return createSpeedString(newSize, newSizeUnit);
-		}
-
-		newSizeUnit = FileSizeUnit.MEBIBYTE;
-		newSize = FileSizeConverter.convert(size, FileSizeUnit.BYTE, newSizeUnit);
-		if (newSize < 1024) {
-			return createSpeedString(newSize, newSizeUnit);
-		}
-
-		newSizeUnit = FileSizeUnit.GIBIBYTE;
-		newSize = FileSizeConverter.convert(size, FileSizeUnit.BYTE, newSizeUnit);
-		if (newSize < 1024) {
-			return createSpeedString(newSize, newSizeUnit);
-		}
-
-		newSizeUnit = FileSizeUnit.TEBIBYTE;
-		newSize = FileSizeConverter.convert(size, FileSizeUnit.BYTE, newSizeUnit);
-		if (newSize < 1024) {
-			return createSpeedString(newSize, newSizeUnit);
-		}
-
-		return size + FileSizeUnit.BYTE.getAbbreviation();
-	}
-
-	private String createSpeedString(double newSize, FileSizeUnit newSizeUnit) {
-		return String.format("%.2f %s/s", newSize, newSizeUnit.getAbbreviation());
+		return FileSizeFormatter.getFormattedBinary(uploadSpeedBytesPerSeconds) + "/s";
 	}
 }
