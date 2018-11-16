@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -64,8 +65,10 @@ public class UICore {
 	}
 
 	private void addTab(TabProvider tabProvider) {
-		tabPane.addTab(tabProvider.getName(), tabProvider.getIcon(), tabProvider.getContentPane(),
+		if(tabPane != null) {
+			tabPane.addTab(tabProvider.getName(), tabProvider.getIcon(), tabProvider.getContentPane(),
 				tabProvider.getToolTip());
+		}
 
 	}
 
@@ -76,8 +79,10 @@ public class UICore {
 	}
 
 	private void removeTab(TabProvider tabProvider) {
-		tabPane.remove(tabProvider.getContentPane());
-
+		JPanel content = tabProvider.getContentPane();
+		if(content == null) {
+			tabPane.remove(content);
+		}
 	}
 
 	@Reference(cardinality = ReferenceCardinality.MULTIPLE, policy = ReferencePolicy.DYNAMIC)
