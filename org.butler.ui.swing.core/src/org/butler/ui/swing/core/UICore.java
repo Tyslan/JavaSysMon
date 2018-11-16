@@ -28,14 +28,15 @@ public class UICore {
 	@Activate
 	protected void activate() {
 		javax.swing.SwingUtilities.invokeLater(() -> {
-			createAndShowUI();
 
+			createAndShowUI();
 		});
 	}
 
 	private void createAndShowUI() {
-		JFrame frame = new JFrame("Butler");
 		setStyle();
+
+		JFrame frame = new JFrame("Butler");
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		tabPane = new JTabbedPane();
 		tabPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -65,11 +66,10 @@ public class UICore {
 	}
 
 	private void addTab(TabProvider tabProvider) {
-		if(tabPane != null) {
+		if (tabPane != null) {
 			tabPane.addTab(tabProvider.getName(), tabProvider.getIcon(), tabProvider.getContentPane(),
-				tabProvider.getToolTip());
+					tabProvider.getToolTip());
 		}
-
 	}
 
 	private void removeTabs() {
@@ -80,7 +80,7 @@ public class UICore {
 
 	private void removeTab(TabProvider tabProvider) {
 		JPanel content = tabProvider.getContentPane();
-		if(content == null) {
+		if (content == null) {
 			tabPane.remove(content);
 		}
 	}
@@ -89,8 +89,10 @@ public class UICore {
 	protected void addTabProvider(TabProvider tabProvider) {
 		tabProviders.add(tabProvider);
 		Collections.sort(tabProviders, tabByPriority);
-		removeTabs();
-		addTabs();
+		if (tabPane != null) {
+			removeTabs();
+			addTabs();
+		}
 	}
 
 	protected void removeTabProvider(TabProvider tabProvider) {
