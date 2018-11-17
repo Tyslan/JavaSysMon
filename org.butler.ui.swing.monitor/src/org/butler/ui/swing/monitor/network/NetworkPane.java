@@ -3,6 +3,8 @@ package org.butler.ui.swing.monitor.network;
 import java.awt.GridLayout;
 import java.awt.Label;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import org.butler.monitor.network.NetworkSpeedData;
@@ -17,6 +19,9 @@ public class NetworkPane extends JPanel {
 	private Label downspeed;
 	private Label upspeed;
 
+	private NetworkSpeedPane downSpeedPane;
+	private NetworkSpeedPane upSpeedPane;
+
 	public NetworkPane(MonitorTabProvider provider) {
 		this.provider = provider;
 		createNetworkPanel();
@@ -26,35 +31,67 @@ public class NetworkPane extends JPanel {
 		content = new JPanel();
 		content.setLayout(new GridLayout(0, 2));
 
-		content.add(new Label(getLabel("network.speed.down")));
-		content.add(new Label(getLabel("network.speed.down")));
+		content.add(createDownSpeedLabelPanel());
+		content.add(createUpSpeedLabelPanel());
 
-		downspeed = new Label(getLabel("network.speed.initializing"));
-		upspeed = new Label(getLabel("network.speed.initializing"));
-		content.add(downspeed);
-		content.add(upspeed);
+		downSpeedPane = new NetworkSpeedPane("Down", 60);
+		upSpeedPane = new NetworkSpeedPane("Up", 60);
+		content.add(downSpeedPane);
+		content.add(upSpeedPane);
 
 		add(content);
 	}
 
-	public void setSpeedData(NetworkSpeedData data) {
-		setDownloadSpeed(data);
-		setUploadSpeed(data);
+	private JPanel createDownSpeedLabelPanel() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		panel.add(new Label(getLabel("network.speed.down")));
+		panel.add(Box.createHorizontalGlue());
+		downspeed = new Label(getLabel("network.speed.initializing"));
+		panel.add(downspeed);
+		return panel;
 	}
 
-	private void setDownloadSpeed(NetworkSpeedData data) {
-		String speed = getSpeedString(data.getDownloadedBytes(), data.getDurationInMillis());
+	private JPanel createUpSpeedLabelPanel() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		panel.add(new Label(getLabel("network.speed.up")));
+		panel.add(Box.createHorizontalGlue());
+		upspeed = new Label(getLabel("network.speed.initializing"));
+		panel.add(upspeed);
+		return panel;
+	}
+
+	public void setSpeedData(NetworkSpeedData data) {
+		double downSpeed = getBytesPerSecond(data.getDownloadedBytes(), data.getDurationInMillis());
+		double upSpeed = getBytesPerSecond(data.getUploadedBytes(), data.getDurationInMillis());
+
+		setDownloadSpeed(downSpeed);
+		setUploadSpeed(upSpeed);
+
+		downSpeedPane.setSpeedData(downSpeed);
+		upSpeedPane.setSpeedData(upSpeed);
+
+		revalidate();
+		repaint();
+	}
+
+	private void setDownloadSpeed(double bps) {
+		String speed = getSpeedString(bps);
 		downspeed.setText(speed);
 	}
 
-	private void setUploadSpeed(NetworkSpeedData data) {
-		String speed = getSpeedString(data.getUploadedBytes(), data.getDurationInMillis());
+	private void setUploadSpeed(double bps) {
+		String speed = getSpeedString(bps);
 		upspeed.setText(speed);
 	}
 
-	private String getSpeedString(long bytes, long durationInMillis) {
-		double speedBytesPerSeconds = bytes / durationInMillis * 1000.0;
-		return FileSizeFormatter.getFormattedBinary(speedBytesPerSeconds) + "/s";
+	private String getSpeedString(double bps) {
+		return FileSizeFormatter.getFormattedBinary(bps) + "/s";
+	}
+
+	private double getBytesPerSecond(long bytes, long durationInMillis) {
+		return bytes / durationInMillis * 1000.0;
 	}
 
 	private String getLabel(String key) {

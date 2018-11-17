@@ -1,0 +1,8 @@
+Bundle-Name: XChart OSGi wrapper
+Bundle-Version: 3.5.2
+Include-Resource:  \
+	@jars/xchart-3.5.2.jar
+Export-Package:  \
+	org.knowm.xchart.*
+-buildpath:  \
+	jars/xchart-3.5.2.jar;version=file

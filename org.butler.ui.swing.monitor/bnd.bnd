@@ -5,7 +5,8 @@ Bundle-Version: 1.0.0.{$tstamp}
 	org.osgi.service.component.annotations,\
 	org.butler.monitor.network;version=latest,\
 	org.butler.ui.swing.core;version=latest,\
-	org.butler.util.file;version=latest
+	org.butler.util.file;version=latest,\
+	org.knowm.xchart;version=latest
 Private-Package: \
 	org.butler.ui.swing.monitor,\
 	org.butler.ui.swing.monitor.network

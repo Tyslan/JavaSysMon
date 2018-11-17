@@ -1,0 +1,8 @@
+Bundle-Name: VectorGraphics2D OSGi wrapper
+Bundle-Version: 0.13.0
+Include-Resource:  \
+	@jars/VectorGraphics2D-0.13.jar
+Export-Package:  \
+	de.erichseifert.vectorgraphics2d.*
+-buildpath:  \
+	jars/VectorGraphics2D-0.13.jar;version=file
