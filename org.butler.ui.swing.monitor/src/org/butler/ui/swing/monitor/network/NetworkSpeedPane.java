@@ -41,8 +41,14 @@ public class NetworkSpeedPane extends JPanel {
 		chart.getStyler().setYAxisTicksVisible(false);
 		chart.getStyler().setDefaultSeriesRenderStyle(XYSeriesRenderStyle.Area);
 		chart.getStyler().setMarkerSize(0);
-
+		chart.getStyler().setYAxisMin(1.0);
 		chart.getStyler().setChartPadding(0);
+
+		Color bgColor = UIManager.getColor("Panel.background");
+		chart.getStyler().setPlotBackgroundColor(bgColor);
+		Color fgColor = UIManager.getColor("Panel.foreground");
+		Color[] fgColors = { fgColor };
+		chart.getStyler().setSeriesColors(fgColors);
 	}
 
 	public void setSpeedData(double bps) {
