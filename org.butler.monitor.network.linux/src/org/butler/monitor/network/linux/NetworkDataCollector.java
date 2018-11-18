@@ -75,6 +75,8 @@ public class NetworkDataCollector {
 			lastCollectedData = rawData;
 		} catch (IOException e) {
 			logger.error("Couldn't collect raw data.", e);
+		} catch (IllegalArgumentException e) {
+			logger.error("", e);
 		}
 	}
 

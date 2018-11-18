@@ -20,9 +20,12 @@ public class NetworkSpeedDataImpl implements NetworkSpeedData {
 		this.uploadedBytes = uploadedBytes;
 	}
 
-	public NetworkSpeedDataImpl(RawNetworkData oldData, RawNetworkData newData) {
+	public NetworkSpeedDataImpl(RawNetworkData oldData, RawNetworkData newData) throws IllegalArgumentException {
 		networkInterface = newData.getNetworkInterface();
 		durationInMillis = getDuration(oldData.getTimestamp(), newData.getTimestamp());
+		if (durationInMillis == 0) {
+			throw new IllegalArgumentException("Duration is 0");
+		}
 
 		downloadedBytes = calculateDownloadSpeed(oldData.getCulminatedSessionDownload(),
 				newData.getCulminatedSessionDownload());

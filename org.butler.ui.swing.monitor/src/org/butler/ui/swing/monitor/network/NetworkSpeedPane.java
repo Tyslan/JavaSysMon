@@ -1,8 +1,10 @@
 package org.butler.ui.swing.monitor.network;
 
+import java.awt.Color;
 import java.util.LinkedList;
 
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;

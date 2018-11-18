@@ -72,7 +72,7 @@ public class NetworkPane extends JPanel {
 		downSpeedPane.setSpeedData(downSpeed);
 		upSpeedPane.setSpeedData(upSpeed);
 
-		revalidate();
+//		revalidate();
 		repaint();
 	}
 
