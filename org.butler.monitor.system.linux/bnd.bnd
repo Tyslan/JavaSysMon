@@ -4,3 +4,5 @@ Bundle-Version: 1.0.0.${tstamp}
 	org.ops4j.pax.logging.pax-logging-api,\
 	org.butler.monitor.system;version=latest,\
 	org.butler.util.os.linux;version=latest
+Bundle-Name: Butler: Monitor: OS: Linux
+Bundle-Description: Butler OS Monitor For Linux

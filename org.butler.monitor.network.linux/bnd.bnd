@@ -1,6 +1,6 @@
-Bundle-Name: Butler: Monitor: Network
+Bundle-Name: Butler: Monitor: Network: Linux
 Bundle-Description: Butler Network Monitoring For Linux
-Bundle-Version: 1.0.0.{tstamp}
+Bundle-Version: 1.0.0.${tstamp}
 Private-Package: \
 	org.butler.monitor.network.linux
 -buildpath: \

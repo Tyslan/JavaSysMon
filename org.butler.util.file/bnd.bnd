@@ -1,6 +1,6 @@
 Bundle-Name: Butler: Utils: File
 Bundle-Description: Utility bundle for files
-Bundle-Version: 1.0.0.{$tstamp}
+Bundle-Version: 1.0.0.${tstamp}
 Export-Package: \
 	org.butler.util.file.size,\
 	org.butler.util.file
