@@ -9,13 +9,17 @@ import javax.swing.JPanel;
 
 import org.butler.monitor.network.NetworkSpeedData;
 import org.butler.monitor.network.NetworkSpeedDataListener;
+import org.butler.monitor.system.SystemPropertyCollector;
 import org.butler.ui.swing.core.api.TabProvider;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 @Component
 public class MonitorTabProvider implements TabProvider, NetworkSpeedDataListener {
 	private MonitorPanel monitorPanel;
 	private ResourceBundle resourceBundle;
+
+	private SystemPropertyCollector systemPropertyCollector;
 
 	@Override
 	public String getName() {
@@ -60,5 +64,18 @@ public class MonitorTabProvider implements TabProvider, NetworkSpeedDataListener
 		} catch (MissingResourceException ignore) {
 		}
 		return key;
+	}
+
+	public SystemPropertyCollector getSystemPropertyCollector() {
+		return systemPropertyCollector;
+	}
+
+	@Reference
+	protected void bindSystemPropertyCollector(SystemPropertyCollector systemPropertyCollector) {
+		this.systemPropertyCollector = systemPropertyCollector;
+	}
+
+	protected void unbindSystemPropertyCollector(SystemPropertyCollector systemPropertyCollector) {
+		this.systemPropertyCollector = null;
 	}
 }

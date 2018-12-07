@@ -45,9 +45,11 @@ public class NetworkPane extends JPanel {
 	private JPanel createDownSpeedLabelPanel() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		panel.add(Box.createHorizontalGlue());
 		panel.add(new Label(getLabel("network.speed.down")));
 		panel.add(Box.createHorizontalGlue());
 		downspeed = new Label(getLabel("network.speed.initializing"));
+		panel.add(Box.createHorizontalGlue());
 		panel.add(downspeed);
 		return panel;
 	}
@@ -55,9 +57,11 @@ public class NetworkPane extends JPanel {
 	private JPanel createUpSpeedLabelPanel() {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		panel.add(Box.createHorizontalGlue());
 		panel.add(new Label(getLabel("network.speed.up")));
 		panel.add(Box.createHorizontalGlue());
 		upspeed = new Label(getLabel("network.speed.initializing"));
+		panel.add(Box.createHorizontalGlue());
 		panel.add(upspeed);
 		return panel;
 	}

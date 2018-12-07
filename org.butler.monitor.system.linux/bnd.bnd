@@ -1,0 +1,6 @@
+Bundle-Version: 1.0.0.${tstamp}
+-buildpath: \
+	org.osgi.service.component.annotations,\
+	org.ops4j.pax.logging.pax-logging-api,\
+	org.butler.monitor.system;version=latest,\
+	org.butler.util.os.linux;version=latest

@@ -27,7 +27,10 @@
 	org.butler.ui.swing.core;version=latest,\
 	org.butler.ui.swing.monitor;version=latest,\
 	org.knowm.xchart;version=latest,\
-	de.erichseifert.vectorgraphics2d;version=latest
+	de.erichseifert.vectorgraphics2d;version=latest,\
+	org.butler.util.os.linux;version=latest,\
+	org.butler.monitor.system;version=latest,\
+	org.butler.monitor.system.linux;version=latest
 
 -runrequires:\
 	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.shell)',\

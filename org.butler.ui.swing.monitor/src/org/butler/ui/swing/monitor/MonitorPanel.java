@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import org.butler.monitor.network.NetworkSpeedData;
 import org.butler.ui.swing.monitor.network.NetworkPane;
+import org.butler.ui.swing.monitor.system.SystemPanel;
 
 public class MonitorPanel extends JPanel {
 	private static final long serialVersionUID = 2784436787404916858L;
@@ -18,6 +19,7 @@ public class MonitorPanel extends JPanel {
 
 	private JPanel contentPane;
 	private NetworkPane networkPane;
+	private SystemPanel systemPanel;
 
 	public MonitorPanel(MonitorTabProvider monitorTabProvider) {
 		this.provider = monitorTabProvider;
@@ -41,9 +43,12 @@ public class MonitorPanel extends JPanel {
 
 	private void createContentPane() {
 		contentPane = new JPanel();
+		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 
 		networkPane = new NetworkPane(provider);
+		systemPanel = new SystemPanel(provider);
 
+		contentPane.add(systemPanel);
 		contentPane.add(networkPane);
 		add(contentPane);
 
