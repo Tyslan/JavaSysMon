@@ -19,7 +19,9 @@ public class LinuxCpuInfoProvider implements CpuInfoProvider {
 	private static final String CPU_ID_STRING = "physical id";
 	private static final String MODEL_STRING = "model name";
 	private static final String PHYSICAL_CORES_STRING = "cpu cores";
+	private static final String PHYSICAL_CORE_ID_STRING = "core id";
 	private static final String LOGICAL_CORES_STRING = "siblings";
+	private static final String LOGICAL_CORE_ID_STRING = "processor";
 
 	private static final String CPU_INFO_FILE = "/proc/cpuinfo";
 
@@ -33,7 +35,7 @@ public class LinuxCpuInfoProvider implements CpuInfoProvider {
 		parseCpuInfoFile();
 	}
 
-	private Map<Integer, CpuInfo> parseCpuInfoFile() {
+	private void parseCpuInfoFile() {
 		LinuxCpuInfo cpuInfo = new LinuxCpuInfo();
 		try (Stream<String> lines = Files.lines(Paths.get(CPU_INFO_FILE))) {
 			lines.forEach(line -> {
@@ -59,28 +61,34 @@ public class LinuxCpuInfoProvider implements CpuInfoProvider {
 				case PHYSICAL_CORES_STRING:
 					cpuInfo.setNumberPhysicalCores(Integer.parseInt(value));
 					break;
+				case PHYSICAL_CORE_ID_STRING:
+					cpuInfo.addPhysicalCoreId(Integer.parseInt(value));
+					break;
 				case LOGICAL_CORES_STRING:
 					cpuInfo.setNumberLogicalCores(Integer.parseInt(value));
+					break;
+				case LOGICAL_CORE_ID_STRING:
+					cpuInfo.addLogicalCoreId(Integer.parseInt(value));
 					break;
 				default:
 					break;
 				}
 			});
 
-			return cpuInfoMap;
 		} catch (IOException e) {
 			logger.error("Couldn't collect system properties", e);
-			return new HashMap<>();
 		}
 	}
 
 	private void flush(LinuxCpuInfo cpuInfo) {
 		int cpuId = cpuInfo.getCpuId();
 		if (cpuInfoMap.containsKey(cpuId)) {
-			logger.debug("Allready processed cpu {}", cpuId);
-		} else {
-			cpuInfoMap.put(cpuId, cpuInfo);
+			LinuxCpuInfo info = (LinuxCpuInfo) cpuInfoMap.get(cpuId);
+			cpuInfo.merge(info);
+
 		}
+
+		cpuInfoMap.put(cpuId, cpuInfo);
 	}
 
 	@Override
