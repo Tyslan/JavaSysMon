@@ -30,7 +30,9 @@
 	de.erichseifert.vectorgraphics2d;version=latest,\
 	org.butler.util.os.linux;version=latest,\
 	org.butler.monitor.system;version=latest,\
-	org.butler.monitor.system.linux;version=latest
+	org.butler.monitor.system.linux;version=latest,\
+	org.butler.monitor.cpu;version=latest,\
+	org.butler.monitor.cpu.linux;version=latest
 
 -runrequires:\
 	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.shell)',\

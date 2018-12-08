@@ -1,0 +1,13 @@
+Bundle-Version: 1.0.0.${tstamp}
+Bundle-Name: Butler: Monitor: CPU: Linux
+Bundle-Description: Butler CPU Monitoring For Linux
+-buildpath: \
+	org.osgi.service.component.annotations,\
+	org.osgi.service.metatype.annotations,\
+	org.ops4j.pax.logging.pax-logging-api,\
+	org.butler.monitor.cpu;version=latest,\
+	org.butler.util.threads;version=latest
+Private-Package: \
+	org.butler.monitor.cpu.linux.info,\
+	org.butler.monitor.cpu.linux.temperature,\
+	org.butler.monitor.cpu.linux.usage
