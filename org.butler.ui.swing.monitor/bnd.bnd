@@ -7,9 +7,11 @@ Bundle-Version: 1.0.0.${tstamp}
 	org.butler.ui.swing.core;version=latest,\
 	org.butler.util.file;version=latest,\
 	org.knowm.xchart;version=latest,\
-	org.butler.monitor.system;version=latest
+	org.butler.monitor.system;version=latest,\
+	org.butler.monitor.cpu;version=latest
 Private-Package: \
 	org.butler.ui.swing.monitor,\
 	org.butler.ui.swing.monitor.network,\
-	org.butler.ui.swing.monitor.system
+	org.butler.ui.swing.monitor.system,\
+	org.butler.ui.swing.monitor.cpu
 Include-Resource:resources/=resources/

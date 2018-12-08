@@ -7,6 +7,9 @@ import java.util.ResourceBundle;
 import javax.swing.Icon;
 import javax.swing.JPanel;
 
+import org.butler.monitor.cpu.CpuInfoProvider;
+import org.butler.monitor.cpu.CpuTemperatureListener;
+import org.butler.monitor.cpu.CpuUsageListener;
 import org.butler.monitor.network.NetworkSpeedData;
 import org.butler.monitor.network.NetworkSpeedDataListener;
 import org.butler.monitor.system.SystemPropertyCollector;
@@ -15,11 +18,13 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 @Component
-public class MonitorTabProvider implements TabProvider, NetworkSpeedDataListener {
+public class MonitorTabProvider
+		implements TabProvider, NetworkSpeedDataListener, CpuTemperatureListener, CpuUsageListener {
 	private MonitorPanel monitorPanel;
 	private ResourceBundle resourceBundle;
 
 	private SystemPropertyCollector systemPropertyCollector;
+	private CpuInfoProvider cpuInfoProvider;
 
 	@Override
 	public String getName() {
@@ -55,6 +60,16 @@ public class MonitorTabProvider implements TabProvider, NetworkSpeedDataListener
 		monitorPanel.setNetworkspeed(data);
 	}
 
+	@Override
+	public void temperatureUpdated(Map<String, Double> temperatures) {
+		monitorPanel.temperatureUpdated(temperatures);
+	}
+
+	@Override
+	public void cpuUsageUpdated(Map<String, Double> usages) {
+		monitorPanel.cpuUsageUpdated(usages);
+	}
+
 	public String getLabel(String key) {
 		if (resourceBundle == null) {
 			resourceBundle = ResourceBundle.getBundle("resources/labels");
@@ -70,6 +85,10 @@ public class MonitorTabProvider implements TabProvider, NetworkSpeedDataListener
 		return systemPropertyCollector;
 	}
 
+	public CpuInfoProvider getCpuInfoProvider() {
+		return cpuInfoProvider;
+	}
+
 	@Reference
 	protected void bindSystemPropertyCollector(SystemPropertyCollector systemPropertyCollector) {
 		this.systemPropertyCollector = systemPropertyCollector;
@@ -77,5 +96,14 @@ public class MonitorTabProvider implements TabProvider, NetworkSpeedDataListener
 
 	protected void unbindSystemPropertyCollector(SystemPropertyCollector systemPropertyCollector) {
 		this.systemPropertyCollector = null;
+	}
+
+	@Reference
+	protected void bindCpuInfoProvider(CpuInfoProvider cpuInfoProvider) {
+		this.cpuInfoProvider = cpuInfoProvider;
+	}
+
+	protected void unbindCpuInfoProvider(CpuInfoProvider cpuInfoProvider) {
+		this.cpuInfoProvider = null;
 	}
 }

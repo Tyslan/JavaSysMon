@@ -2,6 +2,7 @@ package org.butler.ui.swing.monitor;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -9,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.butler.monitor.network.NetworkSpeedData;
+import org.butler.ui.swing.monitor.cpu.CpuPanel;
 import org.butler.ui.swing.monitor.network.NetworkPane;
 import org.butler.ui.swing.monitor.system.SystemPanel;
 
@@ -20,6 +22,7 @@ public class MonitorPanel extends JPanel {
 	private JPanel contentPane;
 	private NetworkPane networkPane;
 	private SystemPanel systemPanel;
+	private CpuPanel cpuPanel;
 
 	public MonitorPanel(MonitorTabProvider monitorTabProvider) {
 		this.provider = monitorTabProvider;
@@ -47,18 +50,28 @@ public class MonitorPanel extends JPanel {
 
 		networkPane = new NetworkPane(provider);
 		systemPanel = new SystemPanel(provider);
+		cpuPanel = new CpuPanel(provider);
 
 		contentPane.add(systemPanel);
+		contentPane.add(cpuPanel);
 		contentPane.add(networkPane);
 		add(contentPane);
 
 	}
 
-	private String getLabel(String key) {
-		return provider.getLabel(key);
-	}
-
 	public void setNetworkspeed(NetworkSpeedData data) {
 		networkPane.setSpeedData(data);
+	}
+
+	public void temperatureUpdated(Map<String, Double> temperatures) {
+		cpuPanel.temperatureUpdated(temperatures);
+	}
+
+	public void cpuUsageUpdated(Map<String, Double> usages) {
+		cpuPanel.cpuUsageUpdated(usages);
+	}
+
+	private String getLabel(String key) {
+		return provider.getLabel(key);
 	}
 }
