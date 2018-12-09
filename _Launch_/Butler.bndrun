@@ -32,7 +32,9 @@
 	org.butler.monitor.system;version=latest,\
 	org.butler.monitor.system.linux;version=latest,\
 	org.butler.monitor.cpu;version=latest,\
-	org.butler.monitor.cpu.linux;version=latest
+	org.butler.monitor.cpu.linux;version=latest,\
+	org.butler.monitor.memory;version=latest,\
+	org.butler.monitor.memory.linux;version=latest
 
 -runrequires:\
 	osgi.identity;filter:='(osgi.identity=org.apache.felix.gogo.shell)',\

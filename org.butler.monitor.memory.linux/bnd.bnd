@@ -1,0 +1,9 @@
+Bundle-Version: 1.0.0.${tstamp}
+Bundle-Name: Butler: Monitor: Memory: Linux
+Bundle-Description: Butler Memory Monitoring For Linux
+-buildpath: \
+	org.osgi.service.component.annotations,\
+	org.osgi.service.metatype.annotations,\
+	org.ops4j.pax.logging.pax-logging-api,\
+	org.butler.monitor.memory;version=latest,\
+	org.butler.util.threads;version=latest
